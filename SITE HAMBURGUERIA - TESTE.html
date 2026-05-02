@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Burger Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #121212;
+            color: #fff;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(rgba(18,18,18,0.8), rgba(18,18,18,0.8)), url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ff9f1c;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        nav button {
+            background: none;
+            border: 2px solid #ff9f1c;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        nav button:hover {
+            background: #ff9f1c;
+            color: #121212;
+        }
+        nav button.active {
+            background: #ff9f1c;
+            color: #121212;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: #1e1e1e;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card h3 {
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
+        .card p {
+            padding: 0 1rem 1rem;
+            color: #ccc;
+        }
+        .btn {
+            width: 100%;
+            background: #ff9f1c;
+            color: #121212;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #e68a00;
+        }
+        .cart-summary {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .cart-items {
+            margin-bottom: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .cart-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #333;
+        }
+        #total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff9f1c;
+            margin-bottom: 1rem;
+        }
+        #whatsapp-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        #whatsapp-btn:hover {
+            background: #128C7E;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            color: #ff9f1c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .institutional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .institutional-card {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .institutional-card h3 {
+            color: #ff9f1c;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            nav { flex-direction: column; }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bricks Burger House</h1>
+        <nav>
+            <button data-tab="historia" class="active">Nossa História</button>
+            <button data-tab="cardapio">Cardápio e Pedidos</button>
+            <button data-tab="institucional">Institucional</button>
+        </nav>
+    </header>
+    <main>
+        <section id="historia" class="tab-content active">
+            <h2 class="section-title">Nossa História</h2>
+            <p style="font-size: 1.2rem; text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+                Em 2015, um grupo de amigos apaixonados por carne na brasa decidiu criar a The Burger Master. 
+                Começamos em uma pequena churrasqueira no quintal, experimentando receitas secretas e perfeccionando cada hambúrguer. 
+                Nossa paixão pela gastronomia artesanal nos levou a selecionar os melhores ingredientes e técnicas de preparo. 
+                Hoje, somos referência em burgers suculentos e cheios de sabor!
+            </p>
+            <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?q=80&w=1200" alt="Hambúrguer na brasa" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+        </section>
+
+        <section id="cardapio" class="tab-content">
+            <h2 class="section-title">Cardápio e Pedidos</h2>
+            <div class="product-grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500" alt="Hambúrguer Clássico">
+                    <h3>Hambúrguer Clássico</h3>
+                    <p>R$ 25</p>
+                    <button class="btn" onclick="addToCart('Hambúrguer Clássico', 25)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=500" alt="Burger BBQ">
+                    <h3>Burger BBQ</h3>
+                    <p>R$ 32</p>
+                    <button class="btn" onclick="addToCart('Burger BBQ', 32)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/TWvpzcM/VOLCANO.png" alt="Burger Veggie" border="0">
+                    <h3>Burger Veggie</h3>
+                    <p>R$ 28</p>
+                    <button class="btn" onclick="addToCart('Burger Veggie', 28)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1598517373753-8e4434b6e2d9?q=80&w=500" alt="Batata Frita">
+                    <h3>Batata Frita</h3>
+                    <p>R$ 15</p>
+                    <button class="btn" onclick="addToCart('Batata Frita', 15)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/ypK9YFD/PATTY-MELT.png" border="0">
+                    <h3>Patty Melt</h3>
+                    <p>R$ 7</p>
+                    <button class="btn" onclick="addToCart('Refrigerante', 7)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            <div class="cart-summary" id="cart-summary" style="display: none;">
+                <h3>Resumo do Pedido</h3>
+                <div class="cart-items" id="cart-items"></div>
+                <div id="total">Total: R$ 0.00</div>
+                <a id="whatsapp-btn" href="#" target="_blank">Finalizar Pedido via WhatsApp</a>
+            </div>
+        </section>
+
+        <section id="institucional" class="tab-content">
+            <h2 class="section-title">Institucional</h2>
+            <div class="institutional-grid">
+                <div class="institutional-card">
+                    <h3>🏆 Missão</h3>
+                    <p>Proporcionar a melhor experiência gastronômica com hambúrgueres artesanais de alta qualidade.</p>
+                </div>
+                <div class="institutional-card">
+                    <h3>🎯 Visão</h3>
+                    <p>Ser referência em burgers artesanais na região, inovando sabores e experiências.</p>
+                </div>
+                <div class="institutional-card">
+                    <h3>❤️ Valores</h3>
+                    <p>Qualidade nos ingredientes, transparência no processo e paixão em cada hambúrguer.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let cart = [];
+
+        // Tab functionality
+        document.querySelectorAll('[data-tab]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                // Update buttons
+                document.querySelectorAll('[data-tab]').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Update sections
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Cart functionality
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartSummary = document.getElementById('cart-summary');
+            const cartItems = document.getElementById('cart-items');
+            const totalEl = document.getElementById('total');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+
+            if (cart.length === 0) {
+                cartSummary.style.display = 'none';
+                return;
+            }
+
+            cartSummary.style.display = 'block';
+
+            cartItems.innerHTML = cart.map(item => 
+                `<div class="cart-item">${item.name} - R$ ${item.price.toFixed(2)}</div>`
+            ).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
+
+            const message = `Olá! Meu pedido: ${cart.map(item => `${item.name} (R$ ${item.price.toFixed(2)})`).join(', ')} | Total: R$ ${total.toFixed(2)}`;
+            whatsappBtn.href = `https://wa.me/88994969234?text=${encodeURIComponent(message)}`;
+        }
+    </script>
+</body>
+</html>
